@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Globalization;
-using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Data;
 using NeutronDiffusion.Logic;
@@ -21,14 +20,16 @@ namespace NeutronDiffusion
         public static readonly double SigmaADefaultValue = 1;
         public static readonly double CosFiDefaultValue = 0.5;
         public static readonly int NeutronNumsDefaultValue = 1000;
+        public static readonly int NumberOfSectorsDefaultValue = 10;
 
-        public Enviroment Enviroment { get; private set; } = new Enviroment(SigmaSDefaultValue, SigmaADefaultValue, CosFiDefaultValue) {NeutronNums = NeutronNumsDefaultValue };
+        public Enviroment Enviroment { get; } = new Enviroment(SigmaSDefaultValue, SigmaADefaultValue, CosFiDefaultValue) {NeutronNums = NeutronNumsDefaultValue };
 
         public PlotModel SimulateOnePlotModel { get; private set; }
         
         public PlotModel SimulateBatchMeanFreePathPlotModel { get; private set; }
         public PlotModel SimulateBatchMeanPathPlotModel { get; private set; }
-
+        public PlotModel SimulateBatchDistributionPlotModel { get; private set; }
+        public int NumberOfSectors { get; set; } = NumberOfSectorsDefaultValue;
         public MainWindow()
         {
             InitializeComponent();
@@ -42,6 +43,7 @@ namespace NeutronDiffusion
 
             SimulateOnePlotModel = new PlotModel
             {
+                Title = "Neutrons tracks",
                 LegendTitle = "Legend",
                 LegendOrientation = LegendOrientation.Vertical,
                 LegendPlacement = LegendPlacement.Outside,
@@ -72,6 +74,7 @@ namespace NeutronDiffusion
         {
             SimulateBatchMeanFreePathPlotModel = new PlotModel
             {
+                Title = "Mean free path distance vs iteration count",
                 LegendTitle = "Legend",
                 LegendOrientation = LegendOrientation.Vertical,
                 LegendPlacement = LegendPlacement.Outside,
@@ -98,6 +101,7 @@ namespace NeutronDiffusion
             };
             SimulateBatchMeanPathPlotModel = new PlotModel
             {
+                Title = "Mean path distance vs iteration count",
                 LegendTitle = "Legend",
                 LegendOrientation = LegendOrientation.Vertical,
                 LegendPlacement = LegendPlacement.Outside,
@@ -122,6 +126,25 @@ namespace NeutronDiffusion
                     }
                 }
             };
+            SimulateBatchDistributionPlotModel = new PlotModel
+            {
+                Title = "Neutrons distribution",
+                Axes =
+                {
+                    new LinearAxis
+                    {
+                        Position = AxisPosition.Bottom,
+                        MajorGridlineStyle = LineStyle.Solid,
+                        MinorGridlineStyle = LineStyle.Dot,
+                        Title = "Number of neutrons inside a circle"
+                    },
+                    new CategoryAxis
+                    {
+                        Position = AxisPosition.Left,
+                        Title = "Circle number"
+                    }
+                }
+            };
         }
 
         public void DrawNeutronWay(Neutron neutron)
@@ -136,7 +159,7 @@ namespace NeutronDiffusion
                 MarkerStroke = OxyColors.Black,
                 MarkerType = MarkerType.Circle,
                 CanTrackerInterpolatePoints = false,
-                Title = $"Neutron {SimulateOnePlotModel.Series.Count + 1}; MeanFreeLenght: {neutron.AverageFreePathLength}; TotalLenght: {neutron.PathLength}",
+                Title = $"Neutron {(SimulateOnePlotModel.Series.Count + 1).ToString("E2")}; MeanFreeLenght: {(neutron.AverageFreePathLength).ToString("E2")}; TotalLenght: {(neutron.PathLength).ToString("E2")}",
                 Smooth = false,
             };
             neutron.CollisionPoint.ForEach(p => neutronCollisionSeries.Points.Add(new DataPoint(p.X, p.Y)));
@@ -176,6 +199,7 @@ namespace NeutronDiffusion
         {
             SimulateBatchMeanFreePathPlotModel.Series.Clear();
             SimulateBatchMeanPathPlotModel.Series.Clear();
+            SimulateBatchDistributionPlotModel.Series.Clear();
             
             var meanFreePathSeries = new LineSeries
             {
@@ -217,25 +241,29 @@ namespace NeutronDiffusion
                 Title = @"Theoretical free path",
                 Smooth = false,
             };
+            var neutronsDistributionSeries = new BarSeries();
             var i = 0;
             var maxMeanFreePath = 0d;
             var minMeanFreePath = 0d;
             var maxMeanPath = 0d;
             var minMeanPath = 0d;
-            var totalSteps = 0l;
+            var totalSteps = 0L;
             var totalPath = 0d;
             var theoreticalFreePath = 1 / Enviroment.SigmaS;
             var theoreticalPath = 1 / Enviroment.SigmaA;
+            var r = 0d;
+            var neutronDistanceList = new List<double>(neutrons.Count);
             neutrons.ForEach(neutron =>
             {
                 ++i;
-                //var meanFreePath = neutron.AverageFreePathLength / i + (i != 1 ? meanFreePathSeries.Points[i - 2].Y * (1 - 1d / i) : 0);
                 totalSteps += neutron.FreePathLength.Count - 1;
                 totalPath += neutron.PathLength;
+                var distance = neutron.CollisionPoint[neutron.CollisionPoint.Count - 1].DistanceTo(neutron.CollisionPoint[0]);
+                neutronDistanceList.Add(distance);
+                if (distance > r) r = distance;
                 var meanFreePath = totalPath / totalSteps;
                 if (meanFreePath > maxMeanFreePath) maxMeanFreePath = meanFreePath;
                 else if (meanFreePath < minMeanFreePath) minMeanFreePath = meanFreePath;
-                //var meanPath = neutron.PathLength / i + (i != 1 ? meanPathSeries.Points[i - 2].Y * (1 - 1d / i) : 0);
                 var meanPath = totalPath / i;
                 if (meanPath > maxMeanPath) maxMeanPath = meanFreePath;
                 else if (meanPath < minMeanPath) minMeanPath = meanPath;
@@ -244,17 +272,54 @@ namespace NeutronDiffusion
                 meanPathSeries.Points.Add(new DataPoint(i, meanPath));
                 pathSeries.Points.Add(new DataPoint(i, theoreticalPath));
             });
-            SimulateBatchMeanFreePathTextBlock.Text = meanFreePathSeries.Points[i - 1].Y.ToString();
-            SimulateBatchMeanPathTextBlock.Text = meanPathSeries.Points[i - 1].Y.ToString();
+            var sectorWidth = r / NumberOfSectors;
+            var getSectorNumber = new Func<double, double, int>(delegate (double distance, double widthOfSecor)
+            {
+                var sectorNumber = 0;
+                var sectorRadius = widthOfSecor;
+                while (distance + double.Epsilon > sectorRadius)
+                {
+                    sectorRadius += widthOfSecor;
+                    ++sectorNumber;
+                }
+                return sectorNumber;
+            });
+            for (var sectorNumber = 0; sectorNumber < NumberOfSectors; ++sectorNumber)
+            {
+                neutronsDistributionSeries.Items.Add(new BarItem(0, sectorNumber + 1));
+            }
+            neutronDistanceList.ForEach(distance =>
+            {
+                var neutronSectorNumber = getSectorNumber(distance, sectorWidth);
+                if (neutronSectorNumber < NumberOfSectors) neutronsDistributionSeries.Items[neutronSectorNumber].Value += 1;
+            });
+
+            SimulateBatchMeanFreePathTextBlock.Text = meanFreePathSeries.Points[i - 1].Y.ToString("E2");
+            SimulateBatchMeanPathTextBlock.Text = meanPathSeries.Points[i - 1].Y.ToString("E2");
+
             SimulateBatchMeanFreePathPlotModel.Series.Add(meanFreePathSeries);
             SimulateBatchMeanFreePathPlotModel.Series.Add(freePathSeries);
+
             SimulateBatchMeanPathPlotModel.Series.Add(meanPathSeries);
             SimulateBatchMeanPathPlotModel.Series.Add(pathSeries);
+
+            SimulateBatchDistributionPlotModel.Series.Add(neutronsDistributionSeries);
+
+            SimulateBatchDistributionPlotModel.Axes[1] =
+                new CategoryAxis
+                {
+                    Position = AxisPosition.Left,
+                    Title = "Circle number",
+                    LabelFormatter = value => ((value + 1) * sectorWidth).ToString("E2")
+                };
+
             SimulateBatchMeanFreePathPlot.ResetAllAxes();
             SimulateBatchMeanPathPlot.ResetAllAxes();
+            SimulateBatchDistributionPlotModel.ResetAllAxes();
+
             SimulateBatchMeanFreePathPlot.InvalidatePlot();
             SimulateBatchMeanPathPlot.InvalidatePlot();
-
+            SimulateBatchDistributionPlotModel.InvalidatePlot(true);
         }
 
         private void Exit_Click(object sender, RoutedEventArgs e)
@@ -350,7 +415,7 @@ namespace NeutronDiffusion
         }
     }
 
-    public class NeutronNumsConverter : IValueConverter
+    public class NonNegativeIntegerConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
@@ -359,7 +424,7 @@ namespace NeutronDiffusion
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            var getDefaultNumber = new Func<int>(() => 1000);
+            var getDefaultNumber = new Func<int>(() => 100);
             var getNeededNumber = new Func<int, int>(delegate (int numb)
             {
                 if (numb < 0)

@@ -9,8 +9,10 @@ namespace NeutronDiffusion.Logic
 		public double SigmaS { get; set; }
 		public double SigmaA { get; set; }
         public double CosFi { get; set; }
-        public double SigmaTr { get; set; }
-        public double SigmaT { get; set; }
+        public double SigmaTr => SigmaA + SigmaS * (1 - CosFi);
+        public double SigmaT => SigmaA + SigmaS;
+        public double D => 1 / (3 * SigmaTr);
+        public double R => 3 * Math.Sqrt(SigmaA / D);
         public int NeutronNums { get; set; }
 
         public double TheoreticalMeanFreePath => 1/SigmaS;
@@ -25,9 +27,11 @@ namespace NeutronDiffusion.Logic
 			SigmaS = sigmaS;
 			SigmaA = sigmaA;
 			CosFi = cosFi;
-		    SigmaTr = sigmaA + sigmaS*(1 - cosFi);
-            SigmaT = sigmaA + sigmaS;
-		}
+		    //SigmaTr = SigmaA + SigmaS*(1 - CosFi);
+      //      SigmaT = SigmaA + SigmaS;
+      //      D = 1/(3*SigmaTr);
+      //      R = 3 * Math.Sqrt(SigmaA / D);
+        }
 
         public Enviroment(Enviroment enviroment) : this(enviroment.SigmaS, enviroment.SigmaA, enviroment.CosFi)
         {
