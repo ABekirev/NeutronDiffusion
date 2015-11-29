@@ -1,0 +1,138 @@
+﻿<Window
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:NeutronDiffusion"
+    xmlns:oxy="http://oxyplot.org/wpf"
+        x:Class="NeutronDiffusion.MainWindow"
+        mc:Ignorable="d"
+        Title="MainWindow" Closing="Confirm_Close">
+    <Grid>
+        <DockPanel>
+            <Menu DockPanel.Dock="Top">
+                <MenuItem Header="_Menu">
+                    <MenuItem Header="_Help"/>
+                    <Separator />
+                    <MenuItem Header="_Exit" Click="Exit_Click" />
+                </MenuItem>
+            </Menu>
+            <TabControl>
+                <TabItem>
+                    <TabItem.Header>
+                        <TextBlock Text="Enviroment"/>
+                    </TabItem.Header>
+                    <StackPanel HorizontalAlignment="Left" VerticalAlignment="Top">
+                        <WrapPanel>
+                            <Label x:Name="SigmaALabel" Content="Sigma A:" Padding="0" Width="80" Height="20" VerticalAlignment="Center"/>
+                            <TextBox x:Name="SigmaAValue" TextWrapping="Wrap" TextAlignment="Center" VerticalAlignment="Center" Width="100">
+                                <Binding Path="Enviroment.SigmaA" Mode="TwoWay">
+                                    <Binding.Converter>
+                                        <local:SigmaConverter/>
+                                    </Binding.Converter>
+                                    <Binding.ConverterParameter>
+                                        SigmaA
+                                    </Binding.ConverterParameter>
+                                </Binding>
+                            </TextBox>
+                        </WrapPanel>
+                        <WrapPanel>
+                            <Label x:Name="SigmaSLabel" Content="Sigma S:" Padding="0" Width="80" Height="20" VerticalAlignment="Center"/>
+                            <TextBox x:Name="SigmaSValue" TextWrapping="Wrap" TextAlignment="Center" VerticalAlignment="Center" Width="100">
+                                <Binding Path="Enviroment.SigmaS" Mode="TwoWay">
+                                    <Binding.Converter>
+                                        <local:SigmaConverter/>
+                                    </Binding.Converter>
+                                    <Binding.ConverterParameter>
+                                        SigmaS
+                                    </Binding.ConverterParameter>
+                                </Binding>
+                            </TextBox>
+                        </WrapPanel>
+                        <WrapPanel>
+                            <Label x:Name="CosFiLabel" Content="Cos Fi:" Padding="0" Width="80" Height="20" VerticalAlignment="Center"/>
+                            <TextBox x:Name="CosFiValue" TextWrapping="Wrap" TextAlignment="Center" VerticalAlignment="Center" Width="100">
+                                <Binding Path="Enviroment.CosFi" Mode="TwoWay">
+                                    <Binding.Converter>
+                                        <local:CosFiConverter/>
+                                    </Binding.Converter>
+                                </Binding>
+                            </TextBox>
+                        </WrapPanel>
+                        <!--<Button Content="Click me" Click="Button_Click" />-->
+                    </StackPanel>
+                </TabItem>
+                <TabItem>
+                    <TabItem.Header>
+                        <TextBlock Text="Single neutron diffusion simulation"/>
+                    </TabItem.Header>
+                    <DockPanel>
+                        <DockPanel DockPanel.Dock="Top" LastChildFill="False">
+                            <Button x:Name="StartSimulateOneButton" DockPanel.Dock="Left" Content="Simulate" Width="75" VerticalAlignment="Center" Margin="0,0,20,0" Click="StartSimulateOneButton_Click"/>
+                            <!--<Label x:Name="MeanFreeTrackLenghtLabel"  DockPanel.Dock="Left" Content="Label" VerticalAlignment="Center" Margin="0,0,10,0"/>
+                            <TextBlock x:Name="MeanFreeTrackTextBlock"  DockPanel.Dock="Left" TextWrapping="Wrap" d:LayoutOverrides="LeftPosition, RightPosition" VerticalAlignment="Center" Margin="0,0,20,0"><Run Text="TextBlock"/></TextBlock>
+                            <Label x:Name="MeanTrackLenghtLabel"  DockPanel.Dock="Left" Content="Label" VerticalAlignment="Center" BorderThickness="0,0,10,0"/>
+                            <TextBlock x:Name="MeanTrackLenghtTextBlock"  DockPanel.Dock="Left" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Center"/>-->
+                            <Button x:Name="ResetSimulateOneButton" Content="Reset simulations" Width="100" VerticalAlignment="Center" Margin="0,0,0,0" Click="ResetSimulateOneButton_Click"/>
+                        </DockPanel>
+                        <Grid>
+                            <oxy:PlotView x:Name="SimulateOnePlot" Model="{Binding SimulateOnePlotModel}"/>
+                        </Grid>
+                    </DockPanel>
+                </TabItem>
+                <TabItem>
+                    <TabItem.Header>
+                        <TextBlock Text="Batch neutron diffusion simulation" />
+                    </TabItem.Header>
+                    <DockPanel>
+                        <DockPanel DockPanel.Dock="Top" LastChildFill="False">
+                            <Button x:Name="StartSimulateBatchButton" DockPanel.Dock="Left" Content="Simulate" Width="75" VerticalAlignment="Center" Margin="0,0,20,0" Click="StartSimulateBatchButton_Click"/>
+                            <Label x:Name="NeutronsNumberLabel" DockPanel.Dock="Left" Content="Number of neutrons:" Padding="0" Margin="0,0,20,0" Height="20" VerticalAlignment="Center"/>
+                            <TextBox x:Name="NeutronsNumberValue" DockPanel.Dock="Left" TextWrapping="Wrap" TextAlignment="Center" VerticalAlignment="Center" Width="100">
+                                <Binding Path="Enviroment.NeutronNums" Mode="TwoWay">
+                                    <Binding.Converter>
+                                        <local:NeutronNumsConverter/>
+                                    </Binding.Converter>
+                                </Binding>
+                            </TextBox>
+                            <Label x:Name="SimulateBatchMeanFreePathLabel"  DockPanel.Dock="Left" Content="Mean free path length" VerticalAlignment="Center" Margin="0,0,10,0"/>
+                            <StackPanel>
+                                <DockPanel LastChildFill="False">
+                                    <Label DockPanel.Dock="Left" Content="Practical:" VerticalAlignment="Center" Margin="0,0,10,0"/>
+                                    <TextBlock x:Name="SimulateBatchMeanFreePathTextBlock"  DockPanel.Dock="Left" TextWrapping="Wrap" Text="-"  VerticalAlignment="Center" Margin="0,0,20,0"/>
+                                </DockPanel>
+                                <DockPanel LastChildFill="False">
+                                    <Label DockPanel.Dock="Left" Content="Theoretical:" VerticalAlignment="Center" Margin="0,0,10,0"/>
+                                    <TextBlock x:Name="SimulateBatchTheoreticalMeanFreePathTextBlock"  DockPanel.Dock="Left" TextWrapping="Wrap" Text="{Binding Enviroment.TheoreticalMeanFreePath}"  VerticalAlignment="Center" Margin="0,0,20,0"/>
+                                </DockPanel>
+                            </StackPanel>
+                            <Label x:Name="SimulateBatchMeanPathLabel"  DockPanel.Dock="Left" Content="Mean path length" VerticalAlignment="Center" BorderThickness="0,0,10,0"/>
+                            <StackPanel>
+                                <DockPanel LastChildFill="False">
+                                    <Label DockPanel.Dock="Left" Content="Practical:" VerticalAlignment="Center" Margin="0,0,10,0"/>
+                                    <TextBlock x:Name="SimulateBatchMeanPathTextBlock"  DockPanel.Dock="Left" TextWrapping="Wrap" Text="-" VerticalAlignment="Center" Margin="0,0,20,0"/>
+                                </DockPanel>
+                                <DockPanel LastChildFill="False">
+                                    <Label DockPanel.Dock="Left" Content="Theoretical:" VerticalAlignment="Center" Margin="0,0,10,0"/>
+                                    <TextBlock x:Name="SimulateBatchTheoreticalMeanPathTextBlock"  DockPanel.Dock="Left" TextWrapping="Wrap" Text="{Binding Enviroment.TheoreticalMeanPath}" VerticalAlignment="Center"/>
+                                </DockPanel>
+                            </StackPanel>
+                        </DockPanel>
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="1*"/>
+                                <RowDefinition Height="1*"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition />
+                            </Grid.ColumnDefinitions>
+
+                            <oxy:PlotView x:Name="SimulateBatchMeanFreePathPlot" Grid.Row="0" HorizontalAlignment="Stretch" Model="{Binding SimulateBatchMeanFreePathPlotModel}"/>
+                            <oxy:PlotView x:Name="SimulateBatchMeanPathPlot" Grid.Row="1" HorizontalAlignment="Stretch" Model="{Binding SimulateBatchMeanPathPlotModel}"/>
+                        </Grid>
+                    </DockPanel>
+                </TabItem>
+            </TabControl>
+        </DockPanel>
+    </Grid>
+</Window>
