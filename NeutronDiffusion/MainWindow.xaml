@@ -86,7 +86,10 @@
                     </TabItem.Header>
                     <DockPanel>
                         <DockPanel DockPanel.Dock="Top" LastChildFill="False">
-                            <Button x:Name="StartSimulateBatchButton" DockPanel.Dock="Left" Content="Simulate" Width="75" VerticalAlignment="Center" Margin="0,0,20,0" Click="StartSimulateBatchButton_Click"/>
+                            <StackPanel>
+                                <Button x:Name="StartSimulateBatchButton" DockPanel.Dock="Left" Content="Simulate" Width="75" VerticalAlignment="Center" Margin="0,0,20,0" Click="StartSimulateBatchButton_Click"/>
+                                <Button x:Name="StartSimulateBatchResetScales" DockPanel.Dock="Left" Content="Reset scale" Width="75" VerticalAlignment="Center" Margin="0,0,20,0" Click="StartSimulateBatchResetScales_Click"/>
+                            </StackPanel>
                             <Label x:Name="NeutronsNumberLabel" DockPanel.Dock="Left" Content="Number of neutrons:" Padding="0" Margin="0,0,20,0" Height="20" VerticalAlignment="Center"/>
                             <TextBox x:Name="NeutronsNumberValue" DockPanel.Dock="Left" TextWrapping="Wrap" TextAlignment="Center" VerticalAlignment="Center" Width="100">
                                 <Binding Path="Enviroment.NeutronNums" Mode="TwoWay">
