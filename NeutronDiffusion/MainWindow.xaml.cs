@@ -43,13 +43,13 @@ namespace NeutronDiffusion
 
             SimulateOnePlotModel = new PlotModel
             {
-                Title = "Neutrons tracks",
-                LegendTitle = "Legend",
-                LegendOrientation = LegendOrientation.Vertical,
-                LegendPlacement = LegendPlacement.Outside,
-                LegendPosition = LegendPosition.RightMiddle,
-                LegendBackground = OxyColor.FromAColor(200, OxyColors.White),
-                LegendBorder = OxyColors.Black,
+                Title = "Траектории нейтронов",
+                //LegendTitle = "Legend",
+                //LegendOrientation = LegendOrientation.Vertical,
+                //LegendPlacement = LegendPlacement.Outside,
+                //LegendPosition = LegendPosition.RightMiddle,
+                //LegendBackground = OxyColor.FromAColor(200, OxyColors.White),
+                //LegendBorder = OxyColors.Black,
                 Axes =
                 {
                     new LinearAxis
@@ -74,7 +74,7 @@ namespace NeutronDiffusion
         {
             SimulateBatchMeanFreePathPlotModel = new PlotModel
             {
-                Title = "Mean free path distance vs iteration count",
+                Title = "Зависимость средней длины свободного пробега до рассеяния от количества итераций",
                 //LegendTitle = "Legend",
                 //LegendOrientation = LegendOrientation.Vertical,
                 //LegendPlacement = LegendPlacement.Inside,
@@ -87,20 +87,20 @@ namespace NeutronDiffusion
                         Position = AxisPosition.Bottom,
                         MajorGridlineStyle = LineStyle.Solid,
                         MinorGridlineStyle = LineStyle.Dot,
-                        Title = "Number of neutrons simulated"
+                        Title = "Количество итераций"
                     },
                     new LinearAxis
                     {
                         Position = AxisPosition.Left,
                         MajorGridlineStyle = LineStyle.Solid,
                         MinorGridlineStyle = LineStyle.Dot,
-                        Title = "Mean free path lenght"
+                        Title = "Средняя длина свободного пробега до рассеяния"
                     }
                 }
             };
             SimulateBatchMeanPathPlotModel = new PlotModel
             {
-                Title = "Mean path distance vs iteration count",
+                Title = "Зависимость средней длины свободного пробега до поглощения от количества итераций",
                 //LegendTitle = "Legend",
                 //LegendOrientation = LegendOrientation.Vertical,
                 //LegendPlacement = LegendPlacement.Inside,
@@ -113,20 +113,20 @@ namespace NeutronDiffusion
                         Position = AxisPosition.Bottom,
                         MajorGridlineStyle = LineStyle.Solid,
                         MinorGridlineStyle = LineStyle.Dot,
-                        Title = "Number of neutrons simulated"
+                        Title = "Количество итераций"
                     },
                     new LinearAxis
                     {
                         Position = AxisPosition.Left,
                         MajorGridlineStyle = LineStyle.Solid,
                         MinorGridlineStyle = LineStyle.Dot,
-                        Title = "Mean path lenght"
+                        Title = "Средняя длина свободного пробега до поглощения"
                     }
                 }
             };
             SimulateBatchDistributionPlotModel = new PlotModel
             {
-                Title = "Neutrons distribution",
+                Title = "Распределение плотности потока нейтронов",
                 Axes =
                 {
                     new LinearAxis
@@ -134,12 +134,12 @@ namespace NeutronDiffusion
                         Position = AxisPosition.Bottom,
                         MajorGridlineStyle = LineStyle.Solid,
                         MinorGridlineStyle = LineStyle.Dot,
-                        Title = "Density of neutrons inside a circle"
+                        Title = "Плотность потока нейтронов"
                     },
                     new CategoryAxis
                     {
                         Position = AxisPosition.Left,
-                        Title = "Circle number"
+                        Title = "Растояние от точечного источника"
                     }
                 }
             };
@@ -157,7 +157,7 @@ namespace NeutronDiffusion
                 MarkerStroke = OxyColors.Black,
                 MarkerType = MarkerType.Circle,
                 CanTrackerInterpolatePoints = false,
-                Title = $"Neutron {(SimulateOnePlotModel.Series.Count + 1).ToString("E2")}; MeanFreeLenght: {(neutron.AverageFreePathLength).ToString("E2")}; TotalLenght: {(neutron.PathLength).ToString("E2")}",
+                //Title = $"Neutron {(SimulateOnePlotModel.Series.Count + 1).ToString("E2")}; MeanFreeLenght: {(neutron.AverageFreePathLength).ToString("E2")}; TotalLenght: {(neutron.PathLength).ToString("E2")}",
                 Smooth = false,
             };
             neutron.CollisionPoint.ForEach(p => neutronCollisionSeries.Points.Add(new DataPoint(p.X, p.Y)));
@@ -319,7 +319,7 @@ namespace NeutronDiffusion
                 new CategoryAxis
                 {
                     Position = AxisPosition.Left,
-                    Title = "Circle number",
+                    Title = "Растояние от точечного источника",
                     LabelFormatter = value => ((value + 1) * sectorWidth).ToString("E2")
                 };
 
@@ -345,7 +345,7 @@ namespace NeutronDiffusion
 
         private void Confirm_Close(object sender, CancelEventArgs e)
         {
-            if (MessageBoxResult.Yes != MessageBox.Show("Are you sure you want to exit?", "Exit Confirmation", MessageBoxButton.YesNo))
+            if (MessageBoxResult.Yes != MessageBox.Show("Вы точно хотите выйти?", "Подтверждение выхода", MessageBoxButton.YesNo))
             {
                 e.Cancel = true;
             }

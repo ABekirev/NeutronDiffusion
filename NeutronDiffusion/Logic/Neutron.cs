@@ -63,13 +63,15 @@ namespace NeutronDiffusion.Logic
         {
             var gamma1 = Rnd(double.Epsilon, 1);
             FreePathLength.Add(-Math.Log(gamma1) / _sigmaS);
-            var gamma2 = Rnd(0, 1);
-            //var wz = 1 - 2 * gamma2;
+            var gamma2x = Rnd(0, 1);
+            var gamma2y = Rnd(0, 1);
+            //var gamma2z = Rnd(0, 1);
+            //var wz = 1 - 2 * gamma2z;
             //var tmp2 = Math.Sqrt(1 - Math.Pow(cosZ, 2));
-            //var wx = tmp2 * Math.Cos(TwoPi * gamma2);
-            //var vy = tmp2 * Math.Sin(TwoPi * gamma2);
-            var wx = Math.Cos(TwoPi * gamma2);
-            var wy = Math.Sin(TwoPi * gamma2);
+            //var wx = tmp2 * Math.Cos(TwoPi * gamma2x);
+            //var vy = tmp2 * Math.Sin(TwoPi * gamma2y);
+            var wx = Math.Cos(TwoPi * gamma2x);
+            var wy = Math.Sin(TwoPi * gamma2y);
             var wz = 0;
             GuidedCos.Add(new Vector3D(wx, wy, wz));
             CollisionPoint.Add(new CustomPoint3D(
