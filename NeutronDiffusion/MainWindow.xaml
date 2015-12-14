@@ -4,7 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:NeutronDiffusion"
-    xmlns:oxy="http://oxyplot.org/wpf"
+        xmlns:oxy="http://oxyplot.org/wpf"
         x:Class="NeutronDiffusion.MainWindow"
         mc:Ignorable="d"
         Title="MainWindow" Closing="Confirm_Close" Width="1600" Height="900">
@@ -90,7 +90,7 @@
                                 <Button x:Name="StartSimulateBatchButton" DockPanel.Dock="Left" Content="Начать симуляцию" Width="128" VerticalAlignment="Center" Margin="0,0,20,0" Click="StartSimulateBatchButton_Click"/>
                                 <Button x:Name="StartSimulateBatchResetScales" DockPanel.Dock="Left" Content="Сбросить масштаб" Width="128" VerticalAlignment="Center" Margin="0,10,20,0" Click="StartSimulateBatchResetScales_Click"/>
                             </StackPanel>
-                            <Label x:Name="NeutronsNumberLabel" DockPanel.Dock="Left" Content="Количество нейтронов:" Padding="0" Margin="0,0,20,0" Height="20" VerticalAlignment="Center"/>
+                            <Label x:Name="NeutronsNumberLabel" DockPanel.Dock="Left" Content="Количество итераций:" Padding="0" Margin="0,0,20,0" Height="20" VerticalAlignment="Center"/>
                             <TextBox x:Name="NeutronsNumberValue" DockPanel.Dock="Left" TextWrapping="Wrap" TextAlignment="Center" VerticalAlignment="Center" Width="100">
                                 <Binding Path="Enviroment.NeutronNums" Mode="TwoWay">
                                     <Binding.Converter>
@@ -121,7 +121,7 @@
                                 </DockPanel>
                             </StackPanel>
                             <Label x:Name="CirclesNumberLabel" DockPanel.Dock="Left" Content="Количество кругов:" Padding="0" Margin="0,0,20,0" Height="20" VerticalAlignment="Center"/>
-                            <TextBox x:Name="CirclesNumberValue" DockPanel.Dock="Left" TextWrapping="Wrap" TextAlignment="Center" VerticalAlignment="Center" Width="100">
+                            <TextBox x:Name="CirclesNumberValue" DockPanel.Dock="Left" TextWrapping="Wrap" TextAlignment="Center" VerticalAlignment="Center" Width="75">
                                 <Binding Path="NumberOfSectors" Mode="TwoWay">
                                     <Binding.Converter>
                                         <local:NonNegativeIntegerConverter/>
