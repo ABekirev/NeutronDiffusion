@@ -16,8 +16,8 @@
         <DockPanel Grid.ColumnSpan="2">
             <Menu DockPanel.Dock="Top">
                 <MenuItem Header="_Меню">
-                    <MenuItem Header="_Помощь"/>
-                    <Separator />
+<!--                    <MenuItem Header="_Помощь"/>-->
+<!--                    <Separator />-->
                     <MenuItem Header="_Выход" Click="Exit_Click" />
                 </MenuItem>
             </Menu>
@@ -46,7 +46,7 @@
                         
                         <WrapPanel Margin="65,0,0,0">
                             <TextBlock FontSize="20" Margin="0,0,0,0" Width="480">&#8226; Макроскопическое сечение поглощения (&#931;<Span BaselineAlignment="Bottom" FontSize="8">A</Span>), см<Span BaselineAlignment="Top" FontSize="8">2</Span>:</TextBlock>
-                            <TextBox x:Name="SigmaAValue" TextWrapping="Wrap" TextAlignment="Center" VerticalAlignment="Center" Width="100">
+                            <TextBox x:Name="SigmaAValue" TextWrapping="Wrap" TextAlignment="Center" VerticalAlignment="Center" Width="100" Height="20">
                                 <Binding Path="Enviroment.SigmaA" Mode="TwoWay">
                                     <Binding.Converter>
                                         <local:SigmaConverter/>
@@ -59,7 +59,7 @@
                         </WrapPanel>
                         <WrapPanel Margin="65,0,0,0">
                             <TextBlock FontSize="20" Margin="0,5,0,0" Width="480">&#8226; Макроскопическое сечение рассеяния (&#931;<Span BaselineAlignment="Bottom" FontSize="8">S</Span>), см<Span BaselineAlignment="Top" FontSize="8">2</Span>:</TextBlock>
-                            <TextBox x:Name="SigmaSValue" Margin="0,5,0,0" TextWrapping="Wrap" TextAlignment="Center" VerticalAlignment="Center" Width="100">
+                            <TextBox x:Name="SigmaSValue" Margin="0,5,0,0" TextWrapping="Wrap" TextAlignment="Center" VerticalAlignment="Center" Width="100" Height="20">
                                 <Binding Path="Enviroment.SigmaS" Mode="TwoWay">
                                     <Binding.Converter>
                                         <local:SigmaConverter/>
@@ -70,9 +70,9 @@
                                 </Binding>
                             </TextBox>
                         </WrapPanel>
-                            <WrapPanel Margin="65,0,0,0">
+                            <WrapPanel Margin="65,0,0,10">
                             <TextBlock FontSize="20" x:Name="CosFiLabel" Margin="0,5,0,0" Width="480">&#8226; Среднее значение косинуса угла (<TextBlock TextDecorations="Overline">cos &#966;</TextBlock>), rad:</TextBlock>
-                            <TextBox x:Name="CosFiValue" Margin="0,5,0,0" TextWrapping="Wrap" TextAlignment="Center" VerticalAlignment="Center" Width="100">
+                            <TextBox x:Name="CosFiValue" Margin="0,5,0,0" TextWrapping="Wrap" TextAlignment="Center" VerticalAlignment="Center" Width="100" Height="20">
                                 <Binding Path="Enviroment.CosFi" Mode="TwoWay">
                                     <Binding.Converter>
                                         <local:CosFiConverter/>
@@ -80,7 +80,14 @@
                                 </Binding>
                             </TextBox>
                         </WrapPanel>
-                       
+                        <Separator Width="580" HorizontalAlignment="Left" Margin="65,0,0,0" />
+                        <WrapPanel Margin="65,0,0,0">
+                            <TextBlock FontSize="20" Margin="0,5,0,0" Width="480">&#8226; Или выберите материал из списка:</TextBlock>
+                            <ComboBox x:Name="MaterialList" Margin="0,5,0,0" Width="Auto" MinWidth="100" Height="25">
+                                <ComboBoxItem>Дерево</ComboBoxItem>
+                                <ComboBoxItem>Дерево прочное</ComboBoxItem>
+                            </ComboBox>
+                        </WrapPanel>
                         <!--                        <Button Content="Применить" Click="ApplySettings_Click" />-->
                         <WrapPanel>
                             <Label Content="     3. Смоделировать движение нейтронов (вкладки №2 и №3)" FontSize="25" />
