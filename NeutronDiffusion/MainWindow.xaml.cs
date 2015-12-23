@@ -94,7 +94,7 @@ namespace NeutronDiffusion
                         Position = AxisPosition.Left,
                         MajorGridlineStyle = LineStyle.Solid,
                         MinorGridlineStyle = LineStyle.Dot,
-                        Title = "Средняя длина свободного пробега до рассеяния"
+                        Title = "Средняя длина свободного\nпробега до рассеяния"
                     }
                 }
             };
@@ -120,13 +120,13 @@ namespace NeutronDiffusion
                         Position = AxisPosition.Left,
                         MajorGridlineStyle = LineStyle.Solid,
                         MinorGridlineStyle = LineStyle.Dot,
-                        Title = "Средняя длина свободного пробега до поглощения"
+                        Title = "Средняя длина свободного\nпробега до поглощения"
                     }
                 }
             };
             SimulateBatchDistributionPlotModel = new PlotModel
             {
-                Title = "Распределение плотности потока нейтронов",
+                Title = "Распределение плотности\nпотока нейтронов",
                 Axes =
                 {
                     new LinearAxis

@@ -7,9 +7,13 @@
         xmlns:oxy="http://oxyplot.org/wpf"
         x:Class="NeutronDiffusion.MainWindow"
         mc:Ignorable="d"
-        Title="MainWindow" Closing="Confirm_Close" Width="1600" Height="900">
+        Title="MainWindow" Closing="Confirm_Close" Width="1400" Height="850">
     <Grid>
-        <DockPanel>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="833*"/>
+            <ColumnDefinition Width="559*"/>
+        </Grid.ColumnDefinitions>
+        <DockPanel Grid.ColumnSpan="2">
             <Menu DockPanel.Dock="Top">
                 <MenuItem Header="_Меню">
                     <MenuItem Header="_Помощь"/>
@@ -27,9 +31,9 @@
                             <Label x:Name="SigmaALabel" Content="Макроскопическое сечение поглощения:" Padding="0" Width="250" Height="20" VerticalAlignment="Center"/>
                             <TextBox x:Name="SigmaAValue" TextWrapping="Wrap" TextAlignment="Center" VerticalAlignment="Center" Width="100">
                                 <Binding Path="Enviroment.SigmaA" Mode="TwoWay">
-                                    <Binding.Converter>
-                                        <local:SigmaConverter/>
-                                    </Binding.Converter>
+                                    <!--                                    <Binding.Converter>-->
+                                    <!--                                        <local:SigmaConverter/>-->
+                                    <!--                                    </Binding.Converter>-->
                                     <Binding.ConverterParameter>
                                         SigmaA
                                     </Binding.ConverterParameter>
@@ -40,9 +44,9 @@
                             <Label x:Name="SigmaSLabel" Content="Макроскопическое сечение рассеяния:" Padding="0" Width="250" Height="20" VerticalAlignment="Center"/>
                             <TextBox x:Name="SigmaSValue" TextWrapping="Wrap" TextAlignment="Center" VerticalAlignment="Center" Width="100">
                                 <Binding Path="Enviroment.SigmaS" Mode="TwoWay">
-                                    <Binding.Converter>
-                                        <local:SigmaConverter/>
-                                    </Binding.Converter>
+                                    <!--                                    <Binding.Converter>-->
+                                    <!--                                        <local:SigmaConverter/>-->
+                                    <!--                                    </Binding.Converter>-->
                                     <Binding.ConverterParameter>
                                         SigmaS
                                     </Binding.ConverterParameter>
@@ -93,12 +97,12 @@
                             <Label x:Name="NeutronsNumberLabel" DockPanel.Dock="Left" Content="Количество итераций:" Padding="0" Margin="0,0,20,0" Height="20" VerticalAlignment="Center"/>
                             <TextBox x:Name="NeutronsNumberValue" DockPanel.Dock="Left" TextWrapping="Wrap" TextAlignment="Center" VerticalAlignment="Center" Width="100">
                                 <Binding Path="Enviroment.NeutronNums" Mode="TwoWay">
-                                    <Binding.Converter>
-                                        <local:NonNegativeIntegerConverter/>
-                                    </Binding.Converter>
+                                    <!--                                    <Binding.Converter>-->
+                                    <!--                                        <local:NonNegativeIntegerConverter/>-->
+                                    <!--                                    </Binding.Converter>-->
                                 </Binding>
                             </TextBox>
-                            <Label x:Name="SimulateBatchMeanFreePathLabel"  DockPanel.Dock="Left" Content="Средняя длина свободного пробега до рассеяния" VerticalAlignment="Center" Margin="0,0,10,0"/>
+                            <Label x:Name="SimulateBatchMeanFreePathLabel"  DockPanel.Dock="Left" Content="Средняя длина свободного &#xD;&#xA;пробега до рассеяния" VerticalAlignment="Center" Margin="0,0,10,0"/>
                             <StackPanel>
                                 <DockPanel LastChildFill="False">
                                     <Label DockPanel.Dock="Left" Content="Экспериментальная:"  Width="128" VerticalAlignment="Center" Margin="0,0,10,0"/>
@@ -109,7 +113,7 @@
                                     <TextBlock x:Name="SimulateBatchTheoreticalMeanFreePathTextBlock"  DockPanel.Dock="Left" TextWrapping="Wrap" Text="{Binding Enviroment.TheoreticalMeanFreePath}"  VerticalAlignment="Center" Margin="0,0,20,0"/>
                                 </DockPanel>
                             </StackPanel>
-                            <Label x:Name="SimulateBatchMeanPathLabel"  DockPanel.Dock="Left" Content="Средняя длина свободного пробега до поглощения" VerticalAlignment="Center" BorderThickness="0,0,10,0"/>
+                            <Label x:Name="SimulateBatchMeanPathLabel"  DockPanel.Dock="Left" Content="Средняя длина свободного &#xD;&#xA;пробега до поглощения" VerticalAlignment="Center" BorderThickness="0,0,10,0"/>
                             <StackPanel>
                                 <DockPanel LastChildFill="False">
                                     <Label DockPanel.Dock="Left" Content="Экспериментальная:" Width="128" VerticalAlignment="Center" Margin="0,0,10,0"/>
@@ -123,9 +127,9 @@
                             <Label x:Name="CirclesNumberLabel" DockPanel.Dock="Left" Content="Количество кругов:" Padding="0" Margin="0,0,20,0" Height="20" VerticalAlignment="Center"/>
                             <TextBox x:Name="CirclesNumberValue" DockPanel.Dock="Left" TextWrapping="Wrap" TextAlignment="Center" VerticalAlignment="Center" Width="75">
                                 <Binding Path="NumberOfSectors" Mode="TwoWay">
-                                    <Binding.Converter>
-                                        <local:NonNegativeIntegerConverter/>
-                                    </Binding.Converter>
+                                    <!--                                    <Binding.Converter>-->
+                                    <!--                                        <local:NonNegativeIntegerConverter/>-->
+                                    <!--                                    </Binding.Converter>-->
                                 </Binding>
                             </TextBox>
                         </StackPanel>
