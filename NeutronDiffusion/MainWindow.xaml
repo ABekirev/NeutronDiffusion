@@ -83,9 +83,7 @@
                         <Separator Width="580" HorizontalAlignment="Left" Margin="65,0,0,0" />
                         <WrapPanel Margin="65,0,0,0">
                             <TextBlock FontSize="20" Margin="0,5,0,0" Width="480">&#8226; Или выберите материал из списка:</TextBlock>
-                            <ComboBox x:Name="MaterialList" Margin="0,5,0,0" Width="Auto" MinWidth="100" Height="25">
-                                <ComboBoxItem>Дерево</ComboBoxItem>
-                                <ComboBoxItem>Дерево прочное</ComboBoxItem>
+                            <ComboBox x:Name="MaterialList" Margin="0,5,0,0" Width="Auto" MinWidth="100" Height="25" SelectionChanged="MaterialList_SelectionChanged">
                             </ComboBox>
                         </WrapPanel>
                         <!--                        <Button Content="Применить" Click="ApplySettings_Click" />-->

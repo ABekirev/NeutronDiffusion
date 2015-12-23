@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Globalization;
+using System.IO;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Data;
 using NeutronDiffusion.Logic;
 using OxyPlot;
@@ -30,12 +32,53 @@ namespace NeutronDiffusion
         public PlotModel SimulateBatchMeanPathPlotModel { get; private set; }
         public PlotModel SimulateBatchDistributionPlotModel { get; private set; }
         public int NumberOfSectors { get; set; } = NumberOfSectorsDefaultValue;
+        public List<Material> Materials = new List<Material>(); 
         public MainWindow()
         {
             InitializeComponent();
             DataContext = this;
+            InitMaterialList();
             InitSimulateOneTab();
             InitSimulateBatchTab();
+        }
+
+        public class Material
+        {
+            public string Caption { get; set; }
+            public double SigmaS { get; set; }
+            public double SigmaA { get; set; }
+            public double CosFi { get; set; }
+
+            public Material(string caption, double sigmaA, double sigmaS, double cosFi)
+            {
+                this.Caption = caption;
+                this.SigmaA = sigmaA;
+                this.SigmaS = sigmaS;
+                this.CosFi = cosFi;
+            }
+
+            public override string ToString()
+            {
+                return this.Caption;
+            }
+        }
+
+        private void InitMaterialList()
+        {
+            var materials = File.ReadLines("materials.txt");
+            foreach (var material in materials)
+            {
+                var tmp = material.Split();
+                try
+                {
+                    Materials.Add(new Material(tmp[0], Convert.ToDouble(tmp[1]), Convert.ToDouble(tmp[2]), Convert.ToDouble(tmp[3])));
+                }
+                catch (Exception)
+                {
+                    // ignored
+                }
+            }
+            MaterialList.ItemsSource = Materials;
         }
 
         public void InitSimulateOneTab()
@@ -349,6 +392,14 @@ namespace NeutronDiffusion
             {
                 e.Cancel = true;
             }
+        }
+
+        private void MaterialList_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            var material = (Material)e.AddedItems[0];
+            SigmaAValue.Text = material.SigmaA.ToString();
+            SigmaSValue.Text = material.SigmaS.ToString();
+            CosFiValue.Text = material.CosFi.ToString();
         }
     }
 
