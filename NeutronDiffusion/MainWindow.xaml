@@ -7,7 +7,7 @@
         xmlns:oxy="http://oxyplot.org/wpf"
         x:Class="NeutronDiffusion.MainWindow"
         mc:Ignorable="d"
-        Title="MainWindow" Closing="Confirm_Close" Width="1400" Height="850">
+        Title="Лабораторный комплекс &quot;Диффузия нейтронов&quot;" Closing="Confirm_Close" Width="1400" Height="850">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="833*"/>
@@ -71,7 +71,7 @@
                             </TextBox>
                         </WrapPanel>
                             <WrapPanel Margin="65,0,0,10">
-                            <TextBlock FontSize="20" x:Name="CosFiLabel" Margin="0,5,0,0" Width="480">&#8226; Среднее значение косинуса угла (<TextBlock TextDecorations="Overline">cos &#966;</TextBlock>), rad:</TextBlock>
+                            <TextBlock FontSize="20" x:Name="CosFiLabel" Margin="0,5,0,0" Width="480">&#8226; Среднее значение косинуса угла (<TextBlock TextDecorations="Overline">cos &#966;</TextBlock>), рад:</TextBlock>
                             <TextBox x:Name="CosFiValue" Margin="0,5,0,0" TextWrapping="Wrap" TextAlignment="Center" VerticalAlignment="Center" Width="100" Height="20">
                                 <Binding Path="Enviroment.CosFi" Mode="TwoWay">
                                     <Binding.Converter>
