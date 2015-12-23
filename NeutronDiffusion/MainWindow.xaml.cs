@@ -22,7 +22,7 @@ namespace NeutronDiffusion
         public static readonly int NeutronNumsDefaultValue = 1000;
         public static readonly int NumberOfSectorsDefaultValue = 10;
 
-        public Enviroment Enviroment { get; } = new Enviroment(SigmaSDefaultValue, SigmaADefaultValue, CosFiDefaultValue) {NeutronNums = NeutronNumsDefaultValue };
+        public Enviroment Enviroment { get; private set; } = new Enviroment(SigmaSDefaultValue, SigmaADefaultValue, CosFiDefaultValue) {NeutronNums = NeutronNumsDefaultValue };
 
         public PlotModel SimulateOnePlotModel { get; private set; }
         

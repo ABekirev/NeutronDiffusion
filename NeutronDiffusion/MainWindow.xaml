@@ -24,46 +24,72 @@
             <TabControl>
                 <TabItem>
                     <TabItem.Header>
-                        <TextBlock Text="Параметров среды"/>
+                        <TextBlock Text="Настройки"/>
                     </TabItem.Header>
-                    <StackPanel HorizontalAlignment="Left" VerticalAlignment="Top">
+                    <StackPanel HorizontalAlignment="Center">
+                            <WrapPanel Margin="0,20,0,0">
+                                <Label x:Name="LabName1" Content="Лабораторная комплекс" Padding="0" Width="1400" Height="80" VerticalAlignment="Center" HorizontalAlignment="Center" HorizontalContentAlignment="Center" FontSize="60"/>
+                            </WrapPanel>
+                            <WrapPanel>
+                            <Label x:Name="LabName2" Content="&quot;Диффузия нейтронов&quot;" Padding="0" Height="80" Width="1400" VerticalAlignment="Center" HorizontalAlignment="Center" HorizontalContentAlignment="Center" FontSize="60" FontWeight="Bold"/>
+                            </WrapPanel>
+                            
+                           <WrapPanel Margin="20,30,0,0">
+                                <TextBlock TextDecorations="Underline" Text="Порядок выполнения работы:" FontSize="35"></TextBlock>
+                           </WrapPanel>
                         <WrapPanel>
-                            <Label x:Name="SigmaALabel" Content="Макроскопическое сечение поглощения:" Padding="0" Width="250" Height="20" VerticalAlignment="Center"/>
+                            <Label Content="     1. Изучить теоретический материал" FontSize="25" />
+                        </WrapPanel>
+                        <WrapPanel>
+                            <Label Content="     2. Задать начальные значения" FontSize="25" />
+                        </WrapPanel>
+                        
+                        <WrapPanel Margin="65,0,0,0">
+                            <TextBlock FontSize="20" Margin="0,0,0,0" Width="480">&#8226; Макроскопическое сечение поглощения (&#931;<Span BaselineAlignment="Bottom" FontSize="8">A</Span>), см<Span BaselineAlignment="Top" FontSize="8">2</Span>:</TextBlock>
                             <TextBox x:Name="SigmaAValue" TextWrapping="Wrap" TextAlignment="Center" VerticalAlignment="Center" Width="100">
                                 <Binding Path="Enviroment.SigmaA" Mode="TwoWay">
-                                    <!--                                    <Binding.Converter>-->
-                                    <!--                                        <local:SigmaConverter/>-->
-                                    <!--                                    </Binding.Converter>-->
+                                    <Binding.Converter>
+                                        <local:SigmaConverter/>
+                                    </Binding.Converter>
                                     <Binding.ConverterParameter>
                                         SigmaA
                                     </Binding.ConverterParameter>
                                 </Binding>
                             </TextBox>
                         </WrapPanel>
-                        <WrapPanel>
-                            <Label x:Name="SigmaSLabel" Content="Макроскопическое сечение рассеяния:" Padding="0" Width="250" Height="20" VerticalAlignment="Center"/>
-                            <TextBox x:Name="SigmaSValue" TextWrapping="Wrap" TextAlignment="Center" VerticalAlignment="Center" Width="100">
+                        <WrapPanel Margin="65,0,0,0">
+                            <TextBlock FontSize="20" Margin="0,5,0,0" Width="480">&#8226; Макроскопическое сечение рассеяния (&#931;<Span BaselineAlignment="Bottom" FontSize="8">S</Span>), см<Span BaselineAlignment="Top" FontSize="8">2</Span>:</TextBlock>
+                            <TextBox x:Name="SigmaSValue" Margin="0,5,0,0" TextWrapping="Wrap" TextAlignment="Center" VerticalAlignment="Center" Width="100">
                                 <Binding Path="Enviroment.SigmaS" Mode="TwoWay">
-                                    <!--                                    <Binding.Converter>-->
-                                    <!--                                        <local:SigmaConverter/>-->
-                                    <!--                                    </Binding.Converter>-->
+                                    <Binding.Converter>
+                                        <local:SigmaConverter/>
+                                    </Binding.Converter>
                                     <Binding.ConverterParameter>
                                         SigmaS
                                     </Binding.ConverterParameter>
                                 </Binding>
                             </TextBox>
                         </WrapPanel>
-                        <!--<WrapPanel>
-                            <Label x:Name="CosFiLabel" Content="Среднее значение косинуса угла :" Padding="0" Width="250" Height="20" VerticalAlignment="Center"/>
-                            <TextBox x:Name="CosFiValue" TextWrapping="Wrap" TextAlignment="Center" VerticalAlignment="Center" Width="100">
+                            <WrapPanel Margin="65,0,0,0">
+                            <TextBlock FontSize="20" x:Name="CosFiLabel" Margin="0,5,0,0" Width="480">&#8226; Среднее значение косинуса угла (<TextBlock TextDecorations="Overline">cos &#966;</TextBlock>), rad:</TextBlock>
+                            <TextBox x:Name="CosFiValue" Margin="0,5,0,0" TextWrapping="Wrap" TextAlignment="Center" VerticalAlignment="Center" Width="100">
                                 <Binding Path="Enviroment.CosFi" Mode="TwoWay">
                                     <Binding.Converter>
                                         <local:CosFiConverter/>
                                     </Binding.Converter>
                                 </Binding>
                             </TextBox>
-                        </WrapPanel>-->
-                        <!--<Button Content="Click me" Click="Button_Click" />-->
+                        </WrapPanel>
+                       
+                        <!--                        <Button Content="Применить" Click="ApplySettings_Click" />-->
+                        <WrapPanel>
+                            <Label Content="     3. Смоделировать движение нейтронов (вкладки №2 и №3)" FontSize="25" />
+                        </WrapPanel>
+                        <WrapPanel>
+                            <Label Content="     4. Проанализировать полученные результаты" FontSize="25" />
+                        </WrapPanel>
+
+                        
                     </StackPanel>
                 </TabItem>
                 <TabItem>
@@ -97,9 +123,9 @@
                             <Label x:Name="NeutronsNumberLabel" DockPanel.Dock="Left" Content="Количество итераций:" Padding="0" Margin="0,0,20,0" Height="20" VerticalAlignment="Center"/>
                             <TextBox x:Name="NeutronsNumberValue" DockPanel.Dock="Left" TextWrapping="Wrap" TextAlignment="Center" VerticalAlignment="Center" Width="100">
                                 <Binding Path="Enviroment.NeutronNums" Mode="TwoWay">
-                                    <!--                                    <Binding.Converter>-->
-                                    <!--                                        <local:NonNegativeIntegerConverter/>-->
-                                    <!--                                    </Binding.Converter>-->
+                                    <Binding.Converter>
+                                        <local:NonNegativeIntegerConverter/>
+                                    </Binding.Converter>
                                 </Binding>
                             </TextBox>
                             <Label x:Name="SimulateBatchMeanFreePathLabel"  DockPanel.Dock="Left" Content="Средняя длина свободного &#xD;&#xA;пробега до рассеяния" VerticalAlignment="Center" Margin="0,0,10,0"/>
@@ -127,9 +153,9 @@
                             <Label x:Name="CirclesNumberLabel" DockPanel.Dock="Left" Content="Количество кругов:" Padding="0" Margin="0,0,20,0" Height="20" VerticalAlignment="Center"/>
                             <TextBox x:Name="CirclesNumberValue" DockPanel.Dock="Left" TextWrapping="Wrap" TextAlignment="Center" VerticalAlignment="Center" Width="75">
                                 <Binding Path="NumberOfSectors" Mode="TwoWay">
-                                    <!--                                    <Binding.Converter>-->
-                                    <!--                                        <local:NonNegativeIntegerConverter/>-->
-                                    <!--                                    </Binding.Converter>-->
+                                    <Binding.Converter>
+                                        <local:NonNegativeIntegerConverter/>
+                                    </Binding.Converter>
                                 </Binding>
                             </TextBox>
                         </StackPanel>
