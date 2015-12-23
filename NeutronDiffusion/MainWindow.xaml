@@ -80,6 +80,16 @@
                                 </Binding>
                             </TextBox>
                         </WrapPanel>
+                        <WrapPanel Margin="65,0,0,10">
+                            <TextBlock FontSize="20" x:Name="NeutronCountLabel" Margin="0,5,0,0" Width="480">&#8226; Количество нейтронов:</TextBlock>
+                            <TextBox x:Name="NeitrolCountVale" Margin="0,5,0,0" TextWrapping="Wrap" TextAlignment="Center" VerticalAlignment="Center" Width="100" Height="20">
+                                <Binding Path="Enviroment.NeutronNums" Mode="TwoWay">
+                                    <Binding.Converter>
+                                        <local:NonNegativeIntegerConverter/>
+                                    </Binding.Converter>
+                                </Binding>
+                            </TextBox>
+                        </WrapPanel>
                         <Separator Width="580" HorizontalAlignment="Left" Margin="65,0,0,0" />
                         <WrapPanel Margin="65,0,0,0">
                             <TextBlock FontSize="20" Margin="0,5,0,0" Width="480">&#8226; Или выберите материал из списка:</TextBlock>
