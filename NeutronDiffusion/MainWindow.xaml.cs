@@ -68,7 +68,7 @@ namespace NeutronDiffusion
             var materials = File.ReadLines("materials.txt");
             foreach (var material in materials)
             {
-                var tmp = material.Split();
+                var tmp = material.Split(';');
                 try
                 {
                     Materials.Add(new Material(tmp[0], Convert.ToDouble(tmp[1]), Convert.ToDouble(tmp[2]), Convert.ToDouble(tmp[3])));
@@ -398,8 +398,11 @@ namespace NeutronDiffusion
         {
             var material = (Material)e.AddedItems[0];
             SigmaAValue.Text = material.SigmaA.ToString();
+            Enviroment.SigmaA = material.SigmaA;
             SigmaSValue.Text = material.SigmaS.ToString();
+            Enviroment.SigmaS = material.SigmaS;
             CosFiValue.Text = material.CosFi.ToString();
+            Enviroment.CosFi = material.CosFi;
         }
     }
 
