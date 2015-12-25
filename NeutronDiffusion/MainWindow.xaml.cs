@@ -71,7 +71,7 @@ namespace NeutronDiffusion
                 var tmp = material.Split(';');
                 try
                 {
-                    Materials.Add(new Material(tmp[0], Convert.ToDouble(tmp[1]), Convert.ToDouble(tmp[2]), Convert.ToDouble(tmp[3])));
+                    Materials.Add(new Material(tmp[0], convertToDouble(tmp[1]), convertToDouble(tmp[2]), convertToDouble(tmp[3])));
                 }
                 catch (Exception)
                 {
@@ -403,6 +403,11 @@ namespace NeutronDiffusion
             Enviroment.SigmaS = material.SigmaS;
             CosFiValue.Text = material.CosFi.ToString();
             Enviroment.CosFi = material.CosFi;
+        }
+
+        private double convertToDouble(string doubleStr)
+        {
+            return Convert.ToDouble(doubleStr.Replace(NumberFormatInfo.CurrentInfo.NumberDecimalSeparator == "," ? "." : ",", NumberFormatInfo.CurrentInfo.NumberDecimalSeparator));
         }
     }
 
