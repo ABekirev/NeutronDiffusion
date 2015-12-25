@@ -13,6 +13,7 @@ namespace NeutronDiffusion.Logic
         public double SigmaT => SigmaA + SigmaS;
         public double D => 1 / (3 * SigmaTr);
         public double R => 3 * Math.Sqrt(SigmaA / D);
+	    public double Kappa => Math.Sqrt(SigmaA/D);
         public int NeutronNums { get; set; }
 
         public double TheoreticalMeanFreePath => 1/SigmaS;
@@ -60,5 +61,10 @@ namespace NeutronDiffusion.Logic
             neutron.Move();
             return neutron;
         }
-	}
+
+	    public double NeutronsDistribution(double r)
+	    {
+		    return NeutronNums / (4*Math.PI*D)*(Math.Exp(-Kappa*r)/r);
+	    }
+    }
 }

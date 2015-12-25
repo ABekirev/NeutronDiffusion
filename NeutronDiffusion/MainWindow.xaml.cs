@@ -288,7 +288,15 @@ namespace NeutronDiffusion
                 Smooth = false,
             };
             var neutronsDistributionSeries = new BarSeries();
-            var i = 0;
+			var neutronsDistributionSeriesTheoretical = new LineSeries
+			{
+				StrokeThickness = 2,
+				MarkerSize = 0,
+				CanTrackerInterpolatePoints = false,
+				Smooth = true,
+			};
+
+			var i = 0;
             var maxMeanFreePath = 0d;
             var minMeanFreePath = 0d;
             var maxMeanPath = 0d;
@@ -345,7 +353,10 @@ namespace NeutronDiffusion
             for (var k = 0; k < neutronsDistributionSeries.Items.Count; ++k)
             {
                 neutronsDistributionSeries.Items[k].Value /= Math.PI*(Math.Pow(sectorWidth * (k + 1), 2) - Math.Pow((sectorWidth * k),2));
-            }
+	            double y = sectorWidth*(k + 1);
+	            double x = Enviroment.NeutronsDistribution(y);
+                neutronsDistributionSeriesTheoretical.Points.Add(new DataPoint(x, y));
+			}
 
             SimulateBatchMeanFreePathTextBlock.Text = meanFreePathSeries.Points[i - 1].Y.ToString("E2");
             SimulateBatchMeanPathTextBlock.Text = meanPathSeries.Points[i - 1].Y.ToString("E2");
@@ -357,6 +368,7 @@ namespace NeutronDiffusion
             SimulateBatchMeanPathPlotModel.Series.Add(pathSeries);
 
             SimulateBatchDistributionPlotModel.Series.Add(neutronsDistributionSeries);
+			SimulateBatchDistributionPlotModel.Series.Add(neutronsDistributionSeriesTheoretical);
 
             SimulateBatchDistributionPlotModel.Axes[1] =
                 new CategoryAxis
