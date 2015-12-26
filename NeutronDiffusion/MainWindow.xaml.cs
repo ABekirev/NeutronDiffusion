@@ -413,8 +413,10 @@ namespace NeutronDiffusion
             Enviroment.SigmaA = material.SigmaA;
             SigmaSValue.Text = material.SigmaS.ToString();
             Enviroment.SigmaS = material.SigmaS;
-            CosFiValue.Text = material.CosFi.ToString();
-            Enviroment.CosFi = material.CosFi;
+            //CosFiValue.Text = material.CosFi.ToString();
+            //Enviroment.CosFi = material.CosFi;
+            SimulateBatchTheoreticalMeanFreePathTextBlock.Text = (1d / material.SigmaS).ToString();
+            SimulateBatchTheoreticalMeanPathTextBlock.Text = (1d / material.SigmaA).ToString();
         }
 
         private double convertToDouble(string doubleStr)

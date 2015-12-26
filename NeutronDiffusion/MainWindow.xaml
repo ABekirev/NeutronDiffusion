@@ -70,7 +70,7 @@
                                 </Binding>
                             </TextBox>
                         </WrapPanel>
-                            <WrapPanel Margin="65,0,0,10">
+                            <!--<WrapPanel Margin="65,0,0,10">
                             <TextBlock FontSize="20" x:Name="CosFiLabel" Margin="0,5,0,0" Width="480">&#8226; Среднее значение косинуса угла (<TextBlock TextDecorations="Overline">cos &#966;</TextBlock>), рад:</TextBlock>
                             <TextBox x:Name="CosFiValue" Margin="0,5,0,0" TextWrapping="Wrap" TextAlignment="Center" VerticalAlignment="Center" Width="100" Height="20">
                                 <Binding Path="Enviroment.CosFi" Mode="TwoWay">
@@ -79,7 +79,7 @@
                                     </Binding.Converter>
                                 </Binding>
                             </TextBox>
-                        </WrapPanel>
+                            </WrapPanel>-->
                         <WrapPanel Margin="65,0,0,10">
                             <TextBlock FontSize="20" x:Name="NeutronCountLabel" Margin="0,5,0,0" Width="480">&#8226; Количество нейтронов:</TextBlock>
                             <TextBox x:Name="NeitrolCountVale" Margin="0,5,0,0" TextWrapping="Wrap" TextAlignment="Center" VerticalAlignment="Center" Width="100" Height="20">
