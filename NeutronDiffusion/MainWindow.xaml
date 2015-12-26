@@ -45,7 +45,7 @@
                         </WrapPanel>
                         
                         <WrapPanel Margin="65,0,0,0">
-                            <TextBlock FontSize="20" Margin="0,0,0,0" Width="480">&#8226; Макроскопическое сечение поглощения (&#931;<Span BaselineAlignment="Bottom" FontSize="8">A</Span>), см<Span BaselineAlignment="Top" FontSize="8">2</Span>:</TextBlock>
+                            <TextBlock FontSize="20" Margin="0,0,0,0" Width="480">&#8226; Макроскопическое сечение поглощения (&#931;<Span BaselineAlignment="Bottom" FontSize="8">A</Span>), см<Span BaselineAlignment="Top" FontSize="8">-1</Span>:</TextBlock>
                             <TextBox x:Name="SigmaAValue" TextWrapping="Wrap" TextAlignment="Center" VerticalAlignment="Center" Width="100" Height="20">
                                 <Binding Path="Enviroment.SigmaA" Mode="TwoWay">
                                     <Binding.Converter>
@@ -58,7 +58,7 @@
                             </TextBox>
                         </WrapPanel>
                         <WrapPanel Margin="65,0,0,0">
-                            <TextBlock FontSize="20" Margin="0,5,0,0" Width="480">&#8226; Макроскопическое сечение рассеяния (&#931;<Span BaselineAlignment="Bottom" FontSize="8">S</Span>), см<Span BaselineAlignment="Top" FontSize="8">2</Span>:</TextBlock>
+                            <TextBlock FontSize="20" Margin="0,5,0,0" Width="480">&#8226; Макроскопическое сечение рассеяния (&#931;<Span BaselineAlignment="Bottom" FontSize="8">S</Span>), см<Span BaselineAlignment="Top" FontSize="8">-1</Span>:</TextBlock>
                             <TextBox x:Name="SigmaSValue" Margin="0,5,0,0" TextWrapping="Wrap" TextAlignment="Center" VerticalAlignment="Center" Width="100" Height="20">
                                 <Binding Path="Enviroment.SigmaS" Mode="TwoWay">
                                     <Binding.Converter>
@@ -133,9 +133,9 @@
                         <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" Width="1920" >
                             <StackPanel>
                                 <Button x:Name="StartSimulateBatchButton" DockPanel.Dock="Left" Content="Начать симуляцию" Width="128" VerticalAlignment="Center" Margin="0,0,20,0" Click="StartSimulateBatchButton_Click"/>
-                                <Button x:Name="StartSimulateBatchResetScales" DockPanel.Dock="Left" Content="Сбросить масштаб" Width="128" VerticalAlignment="Center" Margin="0,10,20,0" Click="StartSimulateBatchResetScales_Click"/>
+                                <Button x:Name="StartSimulateBatchResetScales" DockPanel.Dock="Left" Content="Вернуться к нач.&#xD;&#xA;масштабу" Width="128" HorizontalContentAlignment="Center" VerticalAlignment="Center" Margin="0,10,20,0" Click="StartSimulateBatchResetScales_Click"/>
                             </StackPanel>
-                            <Label x:Name="NeutronsNumberLabel" DockPanel.Dock="Left" Content="Количество итераций:" Padding="0" Margin="0,0,20,0" Height="20" VerticalAlignment="Center"/>
+                            <Label x:Name="NeutronsNumberLabel" DockPanel.Dock="Left" Content="Количество судеб нейтронов:" Padding="0" Margin="0,0,20,0" Height="20" VerticalAlignment="Center"/>
                             <TextBox x:Name="NeutronsNumberValue" DockPanel.Dock="Left" TextWrapping="Wrap" TextAlignment="Center" VerticalAlignment="Center" Width="100">
                                 <Binding Path="Enviroment.NeutronNums" Mode="TwoWay">
                                     <Binding.Converter>
@@ -143,7 +143,7 @@
                                     </Binding.Converter>
                                 </Binding>
                             </TextBox>
-                            <Label x:Name="SimulateBatchMeanFreePathLabel"  DockPanel.Dock="Left" Content="Средняя длина свободного &#xD;&#xA;пробега до рассеяния" VerticalAlignment="Center" Margin="0,0,10,0"/>
+                            <Label x:Name="SimulateBatchMeanFreePathLabel"  DockPanel.Dock="Left" Content="Средняя длина свободного &#xD;&#xA;пробега до рассеяния, см" VerticalAlignment="Center" Margin="0,0,10,0"/>
                             <StackPanel>
                                 <DockPanel LastChildFill="False">
                                     <Label DockPanel.Dock="Left" Content="Экспериментальная:"  Width="128" VerticalAlignment="Center" Margin="0,0,10,0"/>
@@ -154,7 +154,7 @@
                                     <TextBlock x:Name="SimulateBatchTheoreticalMeanFreePathTextBlock"  DockPanel.Dock="Left" TextWrapping="Wrap" Text="{Binding Enviroment.TheoreticalMeanFreePath}"  VerticalAlignment="Center" Margin="0,0,20,0"/>
                                 </DockPanel>
                             </StackPanel>
-                            <Label x:Name="SimulateBatchMeanPathLabel"  DockPanel.Dock="Left" Content="Средняя длина свободного &#xD;&#xA;пробега до поглощения" VerticalAlignment="Center" BorderThickness="0,0,10,0"/>
+                            <Label x:Name="SimulateBatchMeanPathLabel"  DockPanel.Dock="Left" Content="Средняя длина свободного &#xD;&#xA;пробега до поглощения, см" VerticalAlignment="Center" BorderThickness="0,0,10,0"/>
                             <StackPanel>
                                 <DockPanel LastChildFill="False">
                                     <Label DockPanel.Dock="Left" Content="Экспериментальная:" Width="128" VerticalAlignment="Center" Margin="0,0,10,0"/>
@@ -188,6 +188,14 @@
                             <oxy:PlotView x:Name="SimulateBatchMeanPathPlot" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Stretch" Model="{Binding SimulateBatchMeanPathPlotModel}"/>
                             <oxy:PlotView x:Name="SimulateBatchDistributionPlot" Grid.Row="0" Grid.Column="1" Grid.RowSpan="2" HorizontalAlignment="Stretch" Model="{Binding SimulateBatchDistributionPlotModel}" Grid.ColumnSpan="2"/>
                         </Grid>
+                    </DockPanel>
+                </TabItem>
+                <TabItem>
+                    <TabItem.Header>
+                        <TextBlock Text="Теоретическая справка"/>
+                    </TabItem.Header>
+                    <DockPanel>
+                        <WebBrowser x:Name="wb" local:BrowserBehavior.Html="{Binding HtmlToDisplay}" />
                     </DockPanel>
                 </TabItem>
             </TabControl>
