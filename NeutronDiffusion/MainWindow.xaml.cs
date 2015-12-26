@@ -65,6 +65,8 @@ namespace NeutronDiffusion
 
         private void InitMaterialList()
         {
+            if (!File.Exists("materials.txt"))
+                return;
             var materials = File.ReadLines("materials.txt");
             foreach (var material in materials)
             {
