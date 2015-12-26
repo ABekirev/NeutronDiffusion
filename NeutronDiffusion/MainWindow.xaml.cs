@@ -100,14 +100,14 @@ namespace NeutronDiffusion
                         Position = AxisPosition.Bottom,
                         MajorGridlineStyle = LineStyle.Solid,
                         MinorGridlineStyle = LineStyle.Dot,
-                        Title = "X"
+                        Title = "X, см"
                     },
                     new LinearAxis
                     {
                         Position = AxisPosition.Left,
                         MajorGridlineStyle = LineStyle.Solid,
                         MinorGridlineStyle = LineStyle.Dot,
-                        Title = "Y"
+                        Title = "Y, см"
                     }
                 }
             };
@@ -130,14 +130,14 @@ namespace NeutronDiffusion
                         Position = AxisPosition.Bottom,
                         MajorGridlineStyle = LineStyle.Solid,
                         MinorGridlineStyle = LineStyle.Dot,
-                        Title = "Количество итераций"
+                        Title = "Количество итераций, ед"
                     },
                     new LinearAxis
                     {
                         Position = AxisPosition.Left,
                         MajorGridlineStyle = LineStyle.Solid,
                         MinorGridlineStyle = LineStyle.Dot,
-                        Title = "Средняя длина свободного\nпробега до рассеяния"
+                        Title = "Средняя длина свободного\nпробега до рассеяния, см"
                     }
                 }
             };
@@ -156,14 +156,14 @@ namespace NeutronDiffusion
                         Position = AxisPosition.Bottom,
                         MajorGridlineStyle = LineStyle.Solid,
                         MinorGridlineStyle = LineStyle.Dot,
-                        Title = "Количество итераций"
+                        Title = "Количество итераций, ед"
                     },
                     new LinearAxis
                     {
                         Position = AxisPosition.Left,
                         MajorGridlineStyle = LineStyle.Solid,
                         MinorGridlineStyle = LineStyle.Dot,
-                        Title = "Средняя длина свободного\nпробега до поглощения"
+                        Title = "Средняя длина свободного\nпробега до поглощения, см"
                     }
                 }
             };
@@ -177,12 +177,12 @@ namespace NeutronDiffusion
                         Position = AxisPosition.Bottom,
                         MajorGridlineStyle = LineStyle.Solid,
                         MinorGridlineStyle = LineStyle.Dot,
-                        Title = "Плотность потока нейтронов"
+                        Title = "Плотность потока нейтронов,\nед/(см^2*с)"
                     },
                     new CategoryAxis
                     {
                         Position = AxisPosition.Left,
-                        Title = "Растояние от точечного источника"
+                        Title = "Растояние от точечного источника, см"
                     }
                 }
             };
