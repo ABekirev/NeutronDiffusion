@@ -357,7 +357,7 @@ namespace NeutronDiffusion
                 neutronsDistributionSeries.Items[k].Value /= Math.PI*(Math.Pow(sectorWidth * (k + 1), 2) - Math.Pow((sectorWidth * k),2));
 	            double y = sectorWidth*(k + 1);
 	            double x = Enviroment.NeutronsDistribution(y);
-                neutronsDistributionSeriesTheoretical.Points.Add(new DataPoint(x, y));
+                neutronsDistributionSeriesTheoretical.Points.Add(new DataPoint(x, k));
 			}
 
             SimulateBatchMeanFreePathTextBlock.Text = meanFreePathSeries.Points[i - 1].Y.ToString("E2");
