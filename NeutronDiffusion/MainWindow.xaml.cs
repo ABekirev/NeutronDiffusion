@@ -41,7 +41,10 @@ namespace NeutronDiffusion
             InitSimulateOneTab();
             InitSimulateBatchTab();
             if (!File.Exists("theory.html"))
+            {
+                helpTabItem.Visibility = Visibility.Hidden;
                 return;
+            }
             string curDir = Directory.GetCurrentDirectory();
             wb.Source = new Uri(String.Format("file:///{0}/theory.html", curDir));
         }
@@ -136,7 +139,7 @@ namespace NeutronDiffusion
                         Position = AxisPosition.Bottom,
                         MajorGridlineStyle = LineStyle.Solid,
                         MinorGridlineStyle = LineStyle.Dot,
-                        Title = "Количество итераций, ед"
+                        Title = "Количество судеб нейтронов, ед"
                     },
                     new LinearAxis
                     {

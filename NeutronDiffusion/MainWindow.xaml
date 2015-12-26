@@ -190,7 +190,7 @@
                         </Grid>
                     </DockPanel>
                 </TabItem>
-                <TabItem>
+                <TabItem x:Name="helpTabItem">
                     <TabItem.Header>
                         <TextBlock Text="Теоретическая справка"/>
                     </TabItem.Header>
